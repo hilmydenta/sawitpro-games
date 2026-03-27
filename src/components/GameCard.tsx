@@ -15,9 +15,9 @@ const GameCard = ({ title, description, image, url, comingSoon, onSelect }: Game
   return (
     <button
       onClick={handleClick}
-      disabled={comingSoon}
+      disabled={comingSoon && !url}
       className={`w-full text-left rounded-lg overflow-hidden bg-card game-card-shadow transition-all duration-300 ${
-        comingSoon ? "opacity-70 cursor-not-allowed" : "hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+        comingSoon && !url ? "opacity-70 cursor-not-allowed" : "hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
       }`}
     >
       <div className="relative">
