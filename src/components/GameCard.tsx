@@ -34,9 +34,9 @@ const GameCard = ({ title, description, image, url, comingSoon, onSelect }: Game
           </span>
         </div>
         {comingSoon && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
-            <span className="font-heading font-800 text-sm text-accent-foreground bg-accent px-4 py-1.5 rounded-full">
-              Segera Hadir!
+          <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center">
+            <span className="font-heading font-black text-xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+              Dalam Pengembangan
             </span>
           </div>
         )}
