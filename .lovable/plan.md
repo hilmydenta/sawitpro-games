@@ -1,27 +1,63 @@
 
 
-## Plan: Fix iframe games opening new tabs on mobile browsers
+## Event Tracker for SawitPRO Games
 
-### Problem
-The game URLs loaded inside the iframe are likely navigating the parent window or triggering popups (via `window.open` or `target="_top"`). Safari iOS and Android browsers are more permissive with these navigations, causing new tabs to open instead of staying in the iframe.
+### Overview
+Set up Lovable Cloud (Supabase) and create database tables to track user activity, then add client-side tracking logic.
 
-### Solution
-Add the `sandbox` attribute to the `<iframe>` in `src/pages/Index.tsx`. This restricts what the embedded content can do.
+### Database Tables
 
-### Change
+**1. `page_visits`** — Landing page access logs
+| Column | Type | Notes |
+|--------|------|-------|
+| id | uuid PK | |
+| session_id | text | Generated per visit |
+| started_at | timestamptz | Page open time |
+| ended_at | timestamptz | Updated on page close/hide |
+| device_type | text | mobile/tablet/desktop (from user-agent) |
+| browser | text | Parsed from user-agent |
+| os | text | Parsed from user-agent |
+| screen_width | int | |
+| screen_height | int | |
+| referrer | text | document.referrer |
+| country | text | From IP via edge function |
+| city | text | From IP via edge function |
+| language | text | navigator.language |
 
-**`src/pages/Index.tsx`** — Add `sandbox` attribute to the iframe element:
+**2. `game_sessions`** — Tracks each game play session (covers both Panen Sawit & Tanam Sawit)
+| Column | Type | Notes |
+|--------|------|-------|
+| id | uuid PK | |
+| session_id | text | Links to page_visits |
+| game_name | text | "panen_sawit" / "tanam_sawit" / "dunia_sawit" |
+| started_at | timestamptz | When user clicked the card |
+| ended_at | timestamptz | When user closed the game |
+| duration_seconds | int | Computed on close |
 
-```
-sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-popups-to-redirect-within allow-presentation"
-```
+**3. `page_events`** — Generic event log for additional tracking
+| Column | Type | Notes |
+|--------|------|-------|
+| id | uuid PK | |
+| session_id | text | |
+| event_type | text | e.g. "game_card_click", "page_scroll", "cta_click" |
+| event_data | jsonb | Flexible payload |
+| created_at | timestamptz | |
 
-Key permissions:
-- `allow-scripts` — games need JavaScript
-- `allow-same-origin` — games need to access their own storage/cookies
-- `allow-forms` — games may use form submissions
-- **Omitting `allow-top-navigation`** — prevents the iframe from redirecting the parent page (the root cause of new tabs opening)
-- `allow-popups` — some games may need popups, but they'll stay sandboxed
+### Implementation Steps
 
-This is a one-line addition to the existing `<iframe>` tag.
+1. **Enable Lovable Cloud** — Set up Supabase backend
+2. **Create migrations** — Three tables above with appropriate indexes
+3. **Create an edge function `track-event`** — Accepts event payloads, extracts geo/IP data from request headers, inserts into tables. Disables JWT verification since there's no auth.
+4. **Create `src/lib/tracker.ts`** — Client-side module that:
+   - Generates a session ID (stored in sessionStorage)
+   - Detects device type, browser, OS from `navigator.userAgent`
+   - Sends page visit on load, updates `ended_at` on `visibilitychange`/`beforeunload`
+   - Tracks game open/close with timestamps and duration
+5. **Integrate tracker into `Index.tsx`** — Call tracker on mount and when game iframe opens/closes
+
+### Key Design Decisions
+- **No authentication required** — anonymous tracking, no user IDs
+- **Single `game_sessions` table** instead of separate tables per game — more scalable and easier to query
+- **Edge function for inserts** — avoids exposing table directly, allows IP-based geo lookup
+- **`visibilitychange` + `beforeunload`** — ensures we capture end times even on mobile browsers
 
