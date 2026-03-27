@@ -23,7 +23,7 @@ const games = [
     title: "🌍 Dunia Sawit",
     description: "Jelajahi Dunia Sawit, selesaikan Aktivitas dan dapatkan SawitPoin",
     image: gameDunia,
-    url: null,
+    url: "https://dunia-sawit-sawitpro-game.seeles.ai",
     comingSoon: true,
   },
 ];
