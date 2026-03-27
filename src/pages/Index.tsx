@@ -46,6 +46,7 @@ const Index = () => {
           src={activeGameUrl}
           className="flex-1 w-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-presentation"
           allowFullScreen
         />
       </div>
