@@ -9,19 +9,19 @@ import GameCard from "@/components/GameCard";
 const games = [
   {
     title: "🌴 Panen Sawit",
-    description: "Raih Skor Tertinggi!",
+    description: "Panen Sawit Matang, Bunuh Hama dan Raih Skor Tertinggi!",
     image: gamePanen,
     url: "https://69b8bcc2fc02d3717fd55a71.demo.playabl.ai",
   },
   {
     title: "🌱 Tanam Sawit",
-    description: "Rawat Pohonmu hingga Panen dan dapatkan SawitPoin",
+    description: "Rawat Pohonmu, Siram Tiap Hari. Jangan sampai Layu!",
     image: gameTanam,
     url: "https://tanam-sawit-game.replit.app/tanam-sawit-web/",
   },
   {
     title: "🌍 Dunia Sawit",
-    description: "Jelajahi Dunia Sawit, selesaikan Aktivitas dan dapatkan SawitPoin",
+    description: "Jelajahi Dunia dan Selesaikan Aktivitasnya!",
     image: gameDunia,
     url: "https://dunia-sawit-sawitpro-game.seeles.ai",
     comingSoon: true,
@@ -63,7 +63,7 @@ const Index = () => {
             <h1 className="font-heading font-black text-xl text-primary-foreground leading-tight">
               SawitPRO Games (BETA)
             </h1>
-            <p className="text-sm text-primary-foreground/80">Main, Menang & Dapatkan SawitPoin 🎮</p>
+            <p className="text-sm text-primary-foreground/80">Main, Menang dan Dapatkan Hadiahnya! 🎮</p>
           </div>
         </div>
       </header>
