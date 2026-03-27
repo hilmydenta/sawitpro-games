@@ -28,9 +28,14 @@ const GameCard = ({ title, description, image, url, comingSoon, onSelect }: Game
           height={512}
           className="w-full h-40 object-cover"
         />
+        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
+          <span className="font-heading font-black text-2xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] text-center px-4">
+            {title}
+          </span>
+        </div>
         {comingSoon && (
-          <div className="absolute inset-0 bg-foreground/50 flex items-center justify-center">
-            <span className="font-heading font-800 text-lg text-accent-foreground bg-accent px-4 py-1.5 rounded-full">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
+            <span className="font-heading font-800 text-sm text-accent-foreground bg-accent px-4 py-1.5 rounded-full">
               Segera Hadir!
             </span>
           </div>
