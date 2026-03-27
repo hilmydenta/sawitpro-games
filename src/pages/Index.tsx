@@ -63,7 +63,7 @@ const Index = () => {
             <h1 className="font-heading font-black text-xl text-primary-foreground leading-tight">
               SawitPRO Games (BETA)
             </h1>
-            <p className="text-sm text-primary-foreground/80">Main, Menang & Dapatkan SawitPoin 🎮</p>
+            <p className="text-sm text-primary-foreground/80">Main, Menang dan Dapatkan Hadiahnya! 🎮</p>
           </div>
         </div>
       </header>
