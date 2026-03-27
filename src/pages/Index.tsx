@@ -60,9 +60,9 @@ const Index = () => {
           <img src={logo} alt="SawitPRO Logo" className="w-12 h-12 rounded-full" />
           <div>
             <h1 className="font-heading font-black text-xl text-primary-foreground leading-tight">
-              SawitPRO Games
+              SawitPRO Games (BETA)
             </h1>
-            <p className="text-sm text-primary-foreground/80">Main & Menang! 🎮</p>
+            <p className="text-sm text-primary-foreground/80">Main, Menang & Dapatkan SawitPoin 🎮</p>
           </div>
         </div>
       </header>
