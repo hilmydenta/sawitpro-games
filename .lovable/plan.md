@@ -1,18 +1,27 @@
 
 
-## Plan: Embed Games in Same Page via iframe
+## Plan: Fix iframe games opening new tabs on mobile browsers
 
-Instead of opening game URLs in new tabs, clicking a game card will display the game in a full-screen iframe overlay on the same page.
+### Problem
+The game URLs loaded inside the iframe are likely navigating the parent window or triggering popups (via `window.open` or `target="_top"`). Safari iOS and Android browsers are more permissive with these navigations, causing new tabs to open instead of staying in the iframe.
 
-### Changes
+### Solution
+Add the `sandbox` attribute to the `<iframe>` in `src/pages/Index.tsx`. This restricts what the embedded content can do.
 
-1. **`src/pages/Index.tsx`** — Add state to track the currently selected game. When a game is selected, render a full-screen iframe overlay with a close/back button. Pass an `onSelect` callback to GameCard instead of having it open a new tab.
+### Change
 
-2. **`src/components/GameCard.tsx`** — Replace `window.open` with calling the `onSelect` prop. The card becomes a simple trigger that notifies the parent which game was clicked.
+**`src/pages/Index.tsx`** — Add `sandbox` attribute to the iframe element:
 
-### UX Details
-- Full-screen overlay with the game iframe covering the viewport
-- A floating "✕ Kembali" (Back) button at the top-left corner to close the game and return to the game list
-- "Coming Soon" cards remain disabled and non-clickable
-- Smooth fade-in transition when opening/closing
+```
+sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-popups-to-redirect-within allow-presentation"
+```
+
+Key permissions:
+- `allow-scripts` — games need JavaScript
+- `allow-same-origin` — games need to access their own storage/cookies
+- `allow-forms` — games may use form submissions
+- **Omitting `allow-top-navigation`** — prevents the iframe from redirecting the parent page (the root cause of new tabs opening)
+- `allow-popups` — some games may need popups, but they'll stay sandboxed
+
+This is a one-line addition to the existing `<iframe>` tag.
 
