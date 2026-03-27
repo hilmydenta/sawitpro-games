@@ -4,11 +4,12 @@ interface GameCardProps {
   image: string;
   url: string | null;
   comingSoon?: boolean;
+  onSelect?: (url: string) => void;
 }
 
-const GameCard = ({ title, description, image, url, comingSoon }: GameCardProps) => {
+const GameCard = ({ title, description, image, url, comingSoon, onSelect }: GameCardProps) => {
   const handleClick = () => {
-    if (url) window.open(url, "_blank", "noopener,noreferrer");
+    if (url && onSelect) onSelect(url);
   };
 
   return (
