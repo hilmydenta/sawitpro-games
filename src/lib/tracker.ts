@@ -1,5 +1,3 @@
-import { supabase } from "@/integrations/supabase/client";
-
 // Generate or retrieve session ID
 function getSessionId(): string {
   let sessionId = sessionStorage.getItem("sp_session_id");
@@ -14,12 +12,10 @@ function getSessionId(): string {
 function parseUserAgent() {
   const ua = navigator.userAgent;
 
-  // Device type
   let device_type = "desktop";
   if (/Mobi|Android/i.test(ua)) device_type = "mobile";
   else if (/Tablet|iPad/i.test(ua)) device_type = "tablet";
 
-  // Browser
   let browser = "unknown";
   if (/CriOS|Chrome/i.test(ua) && !/Edge|Edg/i.test(ua)) browser = "Chrome";
   else if (/Safari/i.test(ua) && !/Chrome|CriOS/i.test(ua)) browser = "Safari";
@@ -27,7 +23,6 @@ function parseUserAgent() {
   else if (/Edg/i.test(ua)) browser = "Edge";
   else if (/OPR|Opera/i.test(ua)) browser = "Opera";
 
-  // OS
   let os = "unknown";
   if (/Windows/i.test(ua)) os = "Windows";
   else if (/Mac OS X|Macintosh/i.test(ua)) os = "macOS";
@@ -38,16 +33,18 @@ function parseUserAgent() {
   return { device_type, browser, os, user_agent: ua };
 }
 
+function getEdgeFunctionUrl(fnName: string): string {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+  return `${supabaseUrl}/functions/v1/${fnName}`;
+}
+
 async function sendEvent(payload: Record<string, unknown>) {
   try {
-    const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-    const url = `https://${projectId}.supabase.co/functions/v1/track-event`;
-    
-    await fetch(url, {
+    await fetch(getEdgeFunctionUrl("track-event"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-      keepalive: true, // ensures beacon-like behavior on page unload
+      keepalive: true,
     });
   } catch {
     // Silently fail — tracking should never break the app
@@ -72,7 +69,6 @@ export function trackPageVisit() {
     user_agent,
   });
 
-  // Track page close / visibility change
   const handleEnd = () => {
     sendEvent({ action: "page_visit_end", session_id: sessionId });
   };
@@ -92,7 +88,6 @@ export async function trackGameStart(gameName: string) {
   const sessionId = getSessionId();
   gameStartTime = Date.now();
 
-  // Also log a page event
   sendEvent({
     action: "page_event",
     session_id: sessionId,
@@ -101,9 +96,7 @@ export async function trackGameStart(gameName: string) {
   });
 
   try {
-    const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-    const url = `https://${projectId}.supabase.co/functions/v1/track-event`;
-    const res = await fetch(url, {
+    const res = await fetch(getEdgeFunctionUrl("track-event"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -133,7 +126,6 @@ export function trackGameEnd() {
   gameStartTime = null;
 }
 
-// Track generic page events
 export function trackEvent(eventType: string, eventData?: Record<string, unknown>) {
   sendEvent({
     action: "page_event",
