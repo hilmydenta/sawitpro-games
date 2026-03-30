@@ -113,7 +113,7 @@ const Index = () => {
       {/* Game Cards */}
       <main className="container pb-8 space-y-4">
         {games.map((game) => (
-          <GameCard key={game.title} {...game} onSelect={setActiveGameUrl} />
+          <GameCard key={game.title} {...game} onSelect={handleGameSelect} />
         ))}
       </main>
 
