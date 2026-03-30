@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import logo from "@/assets/logo-sawitpro.png";
+import { trackPageVisit, trackGameStart, trackGameEnd } from "@/lib/tracker";
 import mascot from "@/assets/sibrondol-pointing-up.png";
 import gamePanen from "@/assets/game-panen-sawit.jpg";
 import gameTanam from "@/assets/game-tanam-sawit.jpg";
