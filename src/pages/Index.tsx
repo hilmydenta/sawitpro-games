@@ -31,13 +31,39 @@ const games = [
 
 const Index = () => {
   const [activeGameUrl, setActiveGameUrl] = useState<string | null>(null);
+  const activeGameNameRef = useRef<string | null>(null);
+
+  // Track page visit on mount
+  useEffect(() => {
+    trackPageVisit();
+  }, []);
+
+  // Map URL to game name for tracking
+  const getGameName = (url: string): string => {
+    const game = games.find((g) => g.url === url);
+    if (!game) return "unknown";
+    return game.title.replace(/[^\w\s]/g, "").trim().toLowerCase().replace(/\s+/g, "_");
+  };
+
+  const handleGameSelect = (url: string) => {
+    const gameName = getGameName(url);
+    activeGameNameRef.current = gameName;
+    trackGameStart(gameName);
+    setActiveGameUrl(url);
+  };
+
+  const handleGameClose = () => {
+    trackGameEnd();
+    activeGameNameRef.current = null;
+    setActiveGameUrl(null);
+  };
 
   if (activeGameUrl) {
     return (
       <div className="fixed inset-0 z-50 bg-background flex flex-col">
         <div className="bg-primary px-4 py-2 flex items-center gap-3">
           <button
-            onClick={() => setActiveGameUrl(null)}
+            onClick={handleGameClose}
             className="text-primary-foreground font-heading font-bold text-sm bg-primary-foreground/20 hover:bg-primary-foreground/30 px-3 py-1.5 rounded-full transition-colors"
           >
             ✕ Kembali
