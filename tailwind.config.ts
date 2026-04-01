@@ -9,13 +9,13 @@ export default {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "640px",
+        "2xl": "780px",
       },
     },
     extend: {
       fontFamily: {
-        heading: ['Nunito', 'sans-serif'],
-        body: ['Plus Jakarta Sans', 'sans-serif'],
+        heading: ['Fraunces', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,6 +61,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "green-glow": "hsl(var(--green-glow))",
+        "orange-warm": "hsl(var(--orange-warm))",
+        "blue-cool": "hsl(var(--blue-cool))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -76,15 +79,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "bounce-gentle": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-6px)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "bounce-gentle": "bounce-gentle 2s ease-in-out infinite",
       },
     },
   },
