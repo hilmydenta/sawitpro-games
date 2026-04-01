@@ -10,12 +10,9 @@ const AppEcosystem = () => {
         <p className="text-center text-[11px] font-body font-semibold uppercase tracking-[0.2em] text-primary mb-3">
           Ekosistem SawitPRO
         </p>
-        <h2 className="text-center font-heading font-bold text-[30px] text-foreground mb-3">
-          Games tersedia di semua aplikasi SawitPRO
+        <h2 className="text-center font-heading font-bold text-[30px] text-foreground mb-10">
+          Games akan segera tersedia di semua aplikasi SawitPRO
         </h2>
-        <p className="text-center text-muted-foreground text-sm mb-10 max-w-lg mx-auto">
-          Kawan Sawit hadir di seluruh ekosistem SawitPRO. Poin tersinkronisasi otomatis di semua aplikasi.
-        </p>
 
         <div className="flex flex-wrap justify-center gap-4">
           {apps.map((app, i) => (
@@ -37,13 +34,6 @@ const AppEcosystem = () => {
             </a>
           ))}
         </div>
-
-        <p className="text-center text-sm text-muted-foreground mt-8">
-          Sudah punya akun SawitPRO?{" "}
-          <a href="https://sawitpro.id" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">
-            Login dan sinkronkan Poin kamu →
-          </a>
-        </p>
       </div>
     </section>
   );

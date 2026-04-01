@@ -1,6 +1,10 @@
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 
-const StickyBottomCTA = () => {
+interface StickyBottomCTAProps {
+  onOpenTokoSawit?: () => void;
+}
+
+const StickyBottomCTA = ({ onOpenTokoSawit }: StickyBottomCTAProps) => {
   const scrollY = useScrollPosition();
   const visible = scrollY > 300;
 
@@ -18,14 +22,12 @@ const StickyBottomCTA = () => {
         >
           🎮 Mulai Main
         </a>
-        <a
-          href="https://toko.sawitpro.id"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={onOpenTokoSawit}
           className="flex-1 text-center py-3 rounded-lg text-sm font-bold bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
         >
           🛒 Toko Sawit
-        </a>
+        </button>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 
 const Index = () => {
   const [activeGameUrl, setActiveGameUrl] = useState<string | null>(null);
+  const [tokoSawitOpen, setTokoSawitOpen] = useState(false);
   const activeGameNameRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -35,6 +36,39 @@ const Index = () => {
     setActiveGameUrl(null);
   };
 
+  const handleOpenTokoSawit = () => {
+    setTokoSawitOpen(true);
+  };
+
+  const handleCloseTokoSawit = () => {
+    setTokoSawitOpen(false);
+  };
+
+  // Toko Sawit iframe overlay
+  if (tokoSawitOpen) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "#0a1a10" }}>
+        <div className="px-4 py-2 flex items-center gap-3" style={{ background: "rgba(10,26,16,0.95)" }}>
+          <button
+            onClick={handleCloseTokoSawit}
+            className="text-primary font-body font-bold text-sm bg-primary/20 hover:bg-primary/30 px-3 py-1.5 rounded-full transition-colors"
+          >
+            ✕ Kembali
+          </button>
+          <span className="text-sm text-muted-foreground">Toko Sawit</span>
+        </div>
+        <iframe
+          src="https://toko.sawitpro.id"
+          className="flex-1 w-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-presentation"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  // Game iframe overlay
   if (activeGameUrl) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "#0a1a10" }}>
@@ -59,13 +93,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen" style={{ background: "#0a1a10" }}>
-      <Navbar />
-      <HeroSection />
+      <Navbar onOpenTokoSawit={handleOpenTokoSawit} />
+      <HeroSection onOpenTokoSawit={handleOpenTokoSawit} />
       <ValueLoopStrip />
       <GamesSection onSelectGame={handleGameSelect} />
       <AppEcosystem />
       <Footer />
-      <StickyBottomCTA />
+      <StickyBottomCTA onOpenTokoSawit={handleOpenTokoSawit} />
     </div>
   );
 };
