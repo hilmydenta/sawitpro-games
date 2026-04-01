@@ -1,4 +1,8 @@
-const Navbar = () => {
+interface NavbarProps {
+  onOpenTokoSawit?: () => void;
+}
+
+const Navbar = ({ onOpenTokoSawit }: NavbarProps) => {
   return (
     <nav
       className="sticky top-0 z-50 border-b"
@@ -11,21 +15,19 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between py-3">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🌴</span>
-          <span className="font-heading font-bold text-lg text-foreground">Kawan Sawit</span>
+          <img src="/images/sawitpro-logo.png" alt="SawitPRO" className="h-7 w-auto" />
+          <span className="font-heading font-bold text-lg text-foreground">Sawit Games</span>
           <span className="text-[10px] font-body font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/20 text-primary">
             BETA
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <a
-            href="https://toko.sawitpro.id"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={onOpenTokoSawit}
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
           >
             🛒 Toko Sawit
-          </a>
+          </button>
           <a
             href="https://sawitpro.id"
             target="_blank"

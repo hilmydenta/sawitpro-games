@@ -38,7 +38,11 @@ function LeafParticles() {
   );
 }
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onOpenTokoSawit?: () => void;
+}
+
+const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
   return (
     <section
       className="relative overflow-hidden py-16 sm:py-24 px-4"
@@ -48,6 +52,14 @@ const HeroSection = () => {
     >
       <LeafParticles />
 
+      {/* SiBrondol pointing - decorative */}
+      <img
+        src="/images/sibrondol-pointing.png"
+        alt=""
+        aria-hidden
+        className="hidden lg:block absolute right-[5%] bottom-8 w-[180px] xl:w-[220px] pointer-events-none animate-float opacity-90"
+      />
+
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
         {/* Pill badge */}
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-6">
@@ -55,18 +67,17 @@ const HeroSection = () => {
             <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-pulse-glow" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
           </span>
-          <span className="text-sm font-body font-medium text-primary">LIVE · Games Petani Kelapa Sawit</span>
+          <span className="text-sm font-body font-medium text-primary">LIVE · Sawit Games</span>
         </div>
 
-        {/* H1 */}
+        {/* H1 - two rows */}
         <h1
           className="animate-fade-up font-heading font-black leading-tight mb-5"
           style={{ fontSize: "clamp(36px, 7vw, 72px)", animationDelay: "100ms" }}
         >
-          Main, Panen,{" "}
-          <em className="text-primary italic">&amp; Menang</em>
+          Main, Panen <em className="text-primary italic">&amp; Menang</em>
           <br />
-          <span className="text-secondary">Bersama Sawit!</span>
+          <span className="text-secondary">di Sawit Games</span>
         </h1>
 
         {/* Subtitle */}
@@ -74,9 +85,10 @@ const HeroSection = () => {
           className="animate-fade-up text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
           style={{ animationDelay: "200ms" }}
         >
-          Kumpulkan <strong className="text-primary">SawitPoin</strong> dari setiap permainan dan tukarkan langsung
-          dengan kebutuhan kebun di <strong className="text-secondary">Toko Sawit</strong>. Main sambil belajar
-          Good Agricultural Practices!
+          Mainkan kumpulan Sawit Games dan raih skor tertinggi.{" "}
+          <strong className="text-primary">Segera Hadir</strong> — Kumpulkan{" "}
+          <strong className="text-primary">SawitPoin</strong> dari setiap permainan dan tukarkan langsung
+          dengan kebutuhan kebun di <strong className="text-secondary">Toko Sawit</strong>!
         </p>
 
         {/* CTA buttons */}
@@ -87,22 +99,19 @@ const HeroSection = () => {
           >
             🎮 Mulai Main Sekarang
           </a>
-          <a
-            href="https://toko.sawitpro.id"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={onOpenTokoSawit}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-bold border border-secondary/40 text-secondary hover:bg-secondary/10 transition-colors"
           >
             🛒 Lihat Toko Sawit
-          </a>
+          </button>
         </div>
 
-        {/* Stats row */}
+        {/* Stats row - hidden "Maks Poin/Bulan" */}
         <div className="animate-fade-up flex items-center justify-center gap-8 sm:gap-12" style={{ animationDelay: "400ms" }}>
           {[
             { num: "3", label: "Games Seru" },
             { num: "120+", label: "Level Tersedia" },
-            { num: "50", label: "Maks Poin/Bulan" },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className="font-heading font-black text-3xl text-primary">{s.num}</div>
