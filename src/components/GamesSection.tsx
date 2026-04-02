@@ -11,7 +11,7 @@ const GamesSection = ({ onSelectGame }: GamesSectionProps) => {
   const filteredGames = games.filter((g) => g.id !== "sawit-bubble");
 
   return (
-    <section id="games" ref={ref} className="relative py-16 px-4" style={{ background: "#0a1a10" }}>
+    <section id="games" ref={ref} className="relative py-10 px-4" style={{ background: "#0a1a10" }}>
       {/* SiBrondol jumping - decorative */}
       <img
         src="/images/sibrondol-jumping.png"
