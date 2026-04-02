@@ -45,9 +45,8 @@ export const games: GameData[] = [
     poin: "+10 Poin",
     tagline: "Tembak & cocokkan gelembung sawit",
     description: "Bubble shooter dengan tema perkebunan sawit. Selesaikan 120 level dan kuasai pengetahuan GAP.",
-    url: "https://dunia-sawit-sawitpro-game.seeles.ai",
+    url: "https://sawitPRO-bubble-games.replit.app/",
     themeColor: "#1B4F72",
     accentColor: "#56CCF2",
-    comingSoon: true,
   },
 ];

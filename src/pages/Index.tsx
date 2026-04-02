@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { trackPageVisit, trackGameStart, trackGameEnd } from "@/lib/tracker";
+import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent } from "@/lib/tracker";
 import { games } from "@/data/games";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -12,6 +12,7 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 const Index = () => {
   const [activeGameUrl, setActiveGameUrl] = useState<string | null>(null);
   const [tokoSawitOpen, setTokoSawitOpen] = useState(false);
+  const [tokoOpenTime, setTokoOpenTime] = useState<number>(0);
   const activeGameNameRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -37,10 +38,14 @@ const Index = () => {
   };
 
   const handleOpenTokoSawit = () => {
+    setTokoOpenTime(Date.now());
+    trackEvent("toko_sawit_open");
     setTokoSawitOpen(true);
   };
 
   const handleCloseTokoSawit = () => {
+    const durationSeconds = Math.round((Date.now() - tokoOpenTime) / 1000);
+    trackEvent("toko_sawit_close", { duration_seconds: durationSeconds });
     setTokoSawitOpen(false);
   };
 

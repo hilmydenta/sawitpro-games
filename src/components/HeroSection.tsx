@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/tracker";
 
 const LEAF_COUNT = 18;
 
@@ -52,14 +53,6 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
     >
       <LeafParticles />
 
-      {/* SiBrondol pointing - decorative */}
-      <img
-        src="/images/sibrondol-pointing.png"
-        alt=""
-        aria-hidden
-        className="hidden lg:block absolute right-[5%] bottom-8 w-[180px] xl:w-[220px] pointer-events-none animate-float opacity-90"
-      />
-
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
         {/* Pill badge */}
         <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-4">
@@ -92,37 +85,37 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
         </p>
 
         {/* CTA buttons */}
-        <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-3 mb-10" style={{ animationDelay: "300ms" }}>
+        <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-3 mb-4" style={{ animationDelay: "300ms" }}>
           <a
             href="#games"
+            onClick={() => trackEvent("cta_click", { cta: "hero_main" })}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-bold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
           >
             🎮 Mulai Main Sekarang
           </a>
           <button
-            onClick={onOpenTokoSawit}
+            onClick={() => {
+              trackEvent("cta_click", { cta: "hero_toko" });
+              onOpenTokoSawit?.();
+            }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-bold border border-secondary/40 text-secondary hover:bg-secondary/10 transition-colors"
           >
             🛒 Lihat Toko Sawit
           </button>
         </div>
 
-        {/* Stats row - hidden "Maks Poin/Bulan" */}
-        <div className="animate-fade-up flex items-center justify-center gap-8 sm:gap-12" style={{ animationDelay: "400ms" }}>
-          {[
-            { num: "3", label: "Games Seru" },
-            { num: "120+", label: "Level Tersedia" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-heading font-black text-3xl text-primary">{s.num}</div>
-              <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
-            </div>
-          ))}
+        {/* SiBrondol - centered, visible on all screens */}
+        <div className="animate-fade-up flex justify-center" style={{ animationDelay: "400ms" }}>
+          <img
+            src="/images/sibrondol-pointing.png"
+            alt="SiBrondol"
+            className="w-[100px] sm:w-[140px] lg:w-[180px] pointer-events-none animate-float opacity-90"
+          />
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mt-6">
         <div
           className="w-px h-10 animate-scroll-line origin-top"
           style={{ background: "linear-gradient(to bottom, rgba(82,183,136,0.6), transparent)" }}
