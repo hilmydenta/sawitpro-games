@@ -62,7 +62,7 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
 
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
         {/* Pill badge */}
-        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-6">
+        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-4">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-pulse-glow" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
