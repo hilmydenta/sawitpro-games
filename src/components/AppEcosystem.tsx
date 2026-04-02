@@ -5,7 +5,7 @@ const AppEcosystem = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section ref={ref} className="py-16 px-4" style={{ background: "#0d2018" }}>
+    <section ref={ref} className="py-10 px-4" style={{ background: "#0d2018" }}>
       <div className="max-w-[780px] mx-auto">
         <p className="text-center text-[11px] font-body font-semibold uppercase tracking-[0.2em] text-primary mb-3">
           Ekosistem SawitPRO
