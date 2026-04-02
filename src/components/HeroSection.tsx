@@ -45,7 +45,7 @@ interface HeroSectionProps {
 const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
   return (
     <section
-      className="relative overflow-hidden py-16 sm:py-24 px-4"
+      className="relative overflow-hidden py-10 sm:py-16 px-4"
       style={{
         background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(45,106,79,0.35) 0%, transparent 70%), #0a1a10",
       }}
@@ -62,7 +62,7 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
 
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
         {/* Pill badge */}
-        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-6">
+        <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 mb-4">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-primary animate-pulse-glow" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
@@ -82,7 +82,7 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
 
         {/* Subtitle */}
         <p
-          className="animate-fade-up text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
+          className="animate-fade-up text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-6 leading-relaxed"
           style={{ animationDelay: "200ms" }}
         >
           Mainkan kumpulan Sawit Games dan raih skor tertinggi.{" "}
