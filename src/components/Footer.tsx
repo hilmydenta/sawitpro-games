@@ -1,4 +1,5 @@
 import { apps } from "@/data/apps";
+import { trackEvent } from "@/lib/tracker";
 
 const TikTokIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -35,6 +36,7 @@ const Footer = () => {
             href="https://www.tiktok.com/@sawitpro.id"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent("social_click", { platform: "tiktok" })}
             className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="TikTok"
           >
@@ -44,6 +46,7 @@ const Footer = () => {
             href="https://www.instagram.com/sawitpro.id/"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent("social_click", { platform: "instagram" })}
             className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Instagram"
           >
