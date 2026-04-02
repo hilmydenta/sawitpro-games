@@ -45,7 +45,7 @@ interface HeroSectionProps {
 const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
   return (
     <section
-      className="relative overflow-hidden py-16 sm:py-24 px-4"
+      className="relative overflow-hidden py-10 sm:py-16 px-4"
       style={{
         background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(45,106,79,0.35) 0%, transparent 70%), #0a1a10",
       }}
