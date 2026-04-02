@@ -14,7 +14,7 @@ const InstagramIcon = () => (
 
 const Footer = () => {
   return (
-    <footer className="py-10 pb-24 px-4 border-t" style={{ background: "#060f08", borderTopColor: "rgba(82,183,136,0.1)" }}>
+    <footer className="py-8 pb-20 px-4 border-t" style={{ background: "#060f08", borderTopColor: "rgba(82,183,136,0.1)" }}>
       <div className="max-w-[780px] mx-auto text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
           <img src="/images/sawitpro-logo.png" alt="SawitPRO" className="h-8 w-auto" />

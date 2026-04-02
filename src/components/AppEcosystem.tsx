@@ -10,7 +10,7 @@ const AppEcosystem = () => {
         <p className="text-center text-[11px] font-body font-semibold uppercase tracking-[0.2em] text-primary mb-3">
           Ekosistem SawitPRO
         </p>
-        <h2 className="text-center font-heading font-bold text-[30px] text-foreground mb-10">
+        <h2 className="text-center font-heading font-bold text-[30px] text-foreground mb-6">
           Games akan segera tersedia di semua aplikasi SawitPRO
         </h2>
 

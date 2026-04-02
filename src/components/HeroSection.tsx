@@ -82,7 +82,7 @@ const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
 
         {/* Subtitle */}
         <p
-          className="animate-fade-up text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
+          className="animate-fade-up text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-6 leading-relaxed"
           style={{ animationDelay: "200ms" }}
         >
           Mainkan kumpulan Sawit Games dan raih skor tertinggi.{" "}

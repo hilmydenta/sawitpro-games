@@ -28,7 +28,7 @@ const GamesSection = ({ onSelectGame }: GamesSectionProps) => {
         <h2 className="text-center font-heading font-bold text-[34px] text-foreground mb-3">
           Pilih Gamenya, Kumpulkan Poin
         </h2>
-        <p className="text-center text-muted-foreground text-sm mb-10 max-w-lg mx-auto">
+        <p className="text-center text-muted-foreground text-sm mb-6 max-w-lg mx-auto">
           Setiap game berisi tips GAP yang bisa langsung kamu terapkan di kebun.
         </p>
 
