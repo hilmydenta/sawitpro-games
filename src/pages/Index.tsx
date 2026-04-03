@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent } from "@/lib/tracker";
 import { games } from "@/data/games";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ValueLoopStrip from "@/components/ValueLoopStrip";
@@ -17,6 +18,22 @@ const Index = () => {
 
   useEffect(() => {
     trackPageVisit();
+
+    const toastTimer = setTimeout(() => {
+      toast("🎮 4 Games tersedia — coba sekarang!", {
+        description: "Mainkan gratis dan kumpulkan SawitPoin",
+        action: {
+          label: "Lihat Games",
+          onClick: () => {
+            document.getElementById("games")?.scrollIntoView({ behavior: "smooth" });
+            trackEvent("toast_cta_click");
+          },
+        },
+        duration: 6000,
+      });
+    }, 4000);
+
+    return () => clearTimeout(toastTimer);
   }, []);
 
   const getGameName = (url: string): string => {

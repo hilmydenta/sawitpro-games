@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { GameData } from "@/data/games";
 
 interface GameCardProps extends GameData {
@@ -7,6 +8,14 @@ interface GameCardProps extends GameData {
 }
 
 const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeColor, accentColor, comingSoon, index, isInView, onSelect }: GameCardProps) => {
+  const [showPulse, setShowPulse] = useState(false);
+
+  useEffect(() => {
+    if (index === 0 && isInView) {
+      const timer = setTimeout(() => setShowPulse(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [index, isInView]);
   const handleClick = () => {
     if (!comingSoon) onSelect(url);
   };
@@ -15,7 +24,7 @@ const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeCo
     <div
       className={`group relative flex-1 min-w-[280px] max-w-[340px] rounded-xl border overflow-hidden transition-all duration-500 ${
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      } ${comingSoon ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
+      } ${comingSoon ? "opacity-60 cursor-not-allowed" : "cursor-pointer"} ${showPulse ? "animate-card-pulse" : ""}`}
       style={{
         transitionDelay: `${index * 100}ms`,
         background: `linear-gradient(145deg, ${themeColor}33, ${themeColor}11)`,

@@ -22,7 +22,7 @@ const StickyBottomCTA = ({ onOpenTokoSawit }: StickyBottomCTAProps) => {
           onClick={() => trackEvent("cta_click", { cta: "sticky_main" })}
           className="flex-1 text-center py-3 rounded-lg text-sm font-bold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
         >
-          🎮 Mulai Main
+          🎮 Main Gratis
         </a>
         <button
           onClick={() => {

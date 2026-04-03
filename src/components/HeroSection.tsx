@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { trackEvent } from "@/lib/tracker";
 
 const LEAF_COUNT = 18;
@@ -44,6 +44,34 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ onOpenTokoSawit }: HeroSectionProps) => {
+  const nudged = useRef(false);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      if (nudged.current) return;
+      timer = setTimeout(() => {
+        nudged.current = true;
+        const el = document.getElementById("games");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          trackEvent("auto_scroll_nudge");
+        }
+      }, 5000);
+    };
+
+    resetTimer();
+    const events = ["scroll", "touchstart", "mousemove", "keydown"];
+    events.forEach((e) => window.addEventListener(e, resetTimer, { passive: true }));
+
+    return () => {
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, resetTimer));
+    };
+  }, []);
+
   return (
     <section
       className="relative overflow-hidden py-10 sm:py-16 px-4"
