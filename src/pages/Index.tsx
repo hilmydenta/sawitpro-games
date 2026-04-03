@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent } from "@/lib/tracker";
 import { games } from "@/data/games";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ValueLoopStrip from "@/components/ValueLoopStrip";

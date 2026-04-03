@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { trackEvent } from "@/lib/tracker";
 
 const LEAF_COUNT = 18;

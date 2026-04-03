@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { GameData } from "@/data/games";
 
 interface GameCardProps extends GameData {
@@ -7,6 +8,14 @@ interface GameCardProps extends GameData {
 }
 
 const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeColor, accentColor, comingSoon, index, isInView, onSelect }: GameCardProps) => {
+  const [showPulse, setShowPulse] = useState(false);
+
+  useEffect(() => {
+    if (index === 0 && isInView) {
+      const timer = setTimeout(() => setShowPulse(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [index, isInView]);
   const handleClick = () => {
     if (!comingSoon) onSelect(url);
   };

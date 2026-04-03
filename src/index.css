@@ -130,3 +130,12 @@ html {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+
+@keyframes cardPulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 20px 4px hsl(152 55% 50% / 0.3); }
+}
+
+.animate-card-pulse {
+  animation: cardPulse 2s ease-in-out 3;
+}

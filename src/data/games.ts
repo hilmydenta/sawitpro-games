@@ -49,4 +49,17 @@ export const games: GameData[] = [
     themeColor: "#1B4F72",
     accentColor: "#56CCF2",
   },
+  {
+    id: "dunia-sawit",
+    title: "Dunia Sawit",
+    icon: "🌍",
+    badge: "ADVENTURE",
+    poin: "+25 Poin",
+    tagline: "Jelajahi dunia kelapa sawit",
+    description: "Petualangan interaktif menjelajahi ekosistem perkebunan sawit. Pelajari rantai pasok dari hulu ke hilir.",
+    url: "",
+    themeColor: "#6B4226",
+    accentColor: "#D4A574",
+    comingSoon: true,
+  },
 ];
