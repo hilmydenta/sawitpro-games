@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent } from "@/lib/tracker";
+import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent, trackScrollDepth, trackTimeToFirstInteraction } from "@/lib/tracker";
 import { games } from "@/data/games";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
