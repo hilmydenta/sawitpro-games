@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent } from "@/lib/tracker";
+import { trackPageVisit, trackGameStart, trackGameEnd, trackEvent, trackScrollDepth, trackTimeToFirstInteraction } from "@/lib/tracker";
 import { games } from "@/data/games";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
@@ -18,6 +18,8 @@ const Index = () => {
 
   useEffect(() => {
     trackPageVisit();
+    const cleanupScroll = trackScrollDepth();
+    trackTimeToFirstInteraction();
 
     const toastTimer = setTimeout(() => {
       toast("🎮 4 Games tersedia — coba sekarang!", {
@@ -33,7 +35,10 @@ const Index = () => {
       });
     }, 4000);
 
-    return () => clearTimeout(toastTimer);
+    return () => {
+      clearTimeout(toastTimer);
+      cleanupScroll();
+    };
   }, []);
 
   const getGameName = (url: string): string => {
