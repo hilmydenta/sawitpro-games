@@ -125,7 +125,7 @@ const Index = () => {
       <ValueLoopStrip />
       <GamesSection onSelectGame={handleGameSelect} />
       <AppEcosystem />
-      <Footer />
+      <Footer onOpenTokoSawit={handleOpenTokoSawit} />
       <StickyBottomCTA onOpenTokoSawit={handleOpenTokoSawit} />
     </div>
   );

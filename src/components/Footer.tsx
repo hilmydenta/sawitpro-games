@@ -13,7 +13,11 @@ const InstagramIcon = () => (
   </svg>
 );
 
-const Footer = () => {
+interface FooterProps {
+  onOpenTokoSawit?: () => void;
+}
+
+const Footer = ({ onOpenTokoSawit }: FooterProps) => {
   return (
     <footer className="py-8 pb-20 px-4 border-t" style={{ background: "#060f08", borderTopColor: "rgba(82,183,136,0.1)" }}>
       <div className="max-w-[780px] mx-auto text-center">
@@ -67,14 +71,15 @@ const Footer = () => {
             </a>
           ))}
           <span className="text-muted-foreground/30">·</span>
-          <a
-            href="https://toko.sawitpro.id"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              trackEvent("toko_sawit_open", { source: "footer" });
+              onOpenTokoSawit?.();
+            }}
             className="text-secondary font-semibold hover:underline"
           >
             Toko Sawit
-          </a>
+          </button>
         </div>
 
         {/* SiBrondol standard */}
