@@ -13,7 +13,11 @@ const InstagramIcon = () => (
   </svg>
 );
 
-const Footer = () => {
+interface FooterProps {
+  onOpenTokoSawit?: () => void;
+}
+
+const Footer = ({ onOpenTokoSawit }: FooterProps) => {
   return (
     <footer className="py-8 pb-20 px-4 border-t" style={{ background: "#060f08", borderTopColor: "rgba(82,183,136,0.1)" }}>
       <div className="max-w-[780px] mx-auto text-center">
