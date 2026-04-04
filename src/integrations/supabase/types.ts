@@ -77,6 +77,7 @@ export type Database = {
           device_type: string | null
           ended_at: string | null
           id: string
+          is_returning: boolean | null
           language: string | null
           os: string | null
           referrer: string | null
@@ -84,7 +85,11 @@ export type Database = {
           screen_width: number | null
           session_id: string
           started_at: string
+          time_to_first_interaction_ms: number | null
           user_agent: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           browser?: string | null
@@ -94,6 +99,7 @@ export type Database = {
           device_type?: string | null
           ended_at?: string | null
           id?: string
+          is_returning?: boolean | null
           language?: string | null
           os?: string | null
           referrer?: string | null
@@ -101,7 +107,11 @@ export type Database = {
           screen_width?: number | null
           session_id: string
           started_at?: string
+          time_to_first_interaction_ms?: number | null
           user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           browser?: string | null
@@ -111,6 +121,7 @@ export type Database = {
           device_type?: string | null
           ended_at?: string | null
           id?: string
+          is_returning?: boolean | null
           language?: string | null
           os?: string | null
           referrer?: string | null
@@ -118,7 +129,35 @@ export type Database = {
           screen_width?: number | null
           session_id?: string
           started_at?: string
+          time_to_first_interaction_ms?: number | null
           user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
+      scroll_depths: {
+        Row: {
+          created_at: string
+          depth_percent: number
+          id: string
+          reached_at: string
+          session_id: string
+        }
+        Insert: {
+          created_at?: string
+          depth_percent: number
+          id?: string
+          reached_at?: string
+          session_id: string
+        }
+        Update: {
+          created_at?: string
+          depth_percent?: number
+          id?: string
+          reached_at?: string
+          session_id?: string
         }
         Relationships: []
       }
