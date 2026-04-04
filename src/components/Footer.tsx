@@ -71,14 +71,15 @@ const Footer = ({ onOpenTokoSawit }: FooterProps) => {
             </a>
           ))}
           <span className="text-muted-foreground/30">·</span>
-          <a
-            href="https://toko.sawitpro.id"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              trackEvent("toko_sawit_open", { source: "footer" });
+              onOpenTokoSawit?.();
+            }}
             className="text-secondary font-semibold hover:underline"
           >
             Toko Sawit
-          </a>
+          </button>
         </div>
 
         {/* SiBrondol standard */}
