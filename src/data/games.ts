@@ -50,7 +50,7 @@ export const games: GameData[] = [
     accentColor: "#56CCF2",
   },
   {
-    id: "dunia-sawit",
+    id: "dunia_sawit",
     title: "Dunia Sawit",
     icon: "🌍",
     badge: "ADVENTURE",
