@@ -26,7 +26,7 @@ export const games: GameData[] = [
     accentColor: "#52B788",
   },
   {
-    id: "panen-sawit",
+    id: "panen_sawit",
     title: "Panen Sawit",
     icon: "🍊",
     badge: "TIME ATTACK",
