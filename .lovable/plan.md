@@ -1,105 +1,73 @@
 
 
-## Rekomendasi Peningkatan Analytics & Event Tracking
+## Analytics Improvement Recommendations
 
-### Ringkasan Data Saat Ini
-- 300 total visits, 54 bounce (18%), avg duration 34 menit
-- 199 game sessions, hanya 100 completed (50% drop-off)
-- Events: 148 game clicks, 92 section views, 63 CTA clicks, 21 auto-scroll nudges
-- 56% mobile, 40% desktop, 4% tablet
+Based on a deep dive into the live data, here are concrete issues and improvements found.
 
-### Yang Sudah Di-track
-Page visits, game sessions, CTA clicks (hero/sticky), section views (games, ecosystem), social clicks, toko sawit open/close, auto-scroll nudge, toast CTA click
+### Critical Bugs Found
 
-### Yang Belum Di-track (Gap Analysis)
+**1. Game name inconsistency (data corruption)**
+Games are tracked with inconsistent names: `panen_sawit` (102 sessions) vs `panen-sawit` (7 sessions), and `tanam_sawit` (43) vs `tanam-sawit` (24). This splits analytics data and inflates game counts. Root cause is likely in `src/data/games.ts` game IDs using different separators.
+- Fix: Normalize all game IDs to use underscores, add a migration to merge existing data.
 
----
+**2. Game abandon event stores wrong session_id**
+In `track-event/index.ts` line 82, when tracking game abandonment, it uses `game_session_id` as `session_id` instead of the actual page visit `session_id`. This means abandon events cannot be correlated with the visitor session.
+- Fix: Pass the real `session_id` from the client when ending a game session.
 
-### A. Event Tracking Baru (Quick Wins)
+### Dashboard Improvements
 
-**1. Scroll Depth Tracking**
-- Track 25%, 50%, 75%, 100% scroll milestones
-- File: `src/pages/Index.tsx` — add scroll listener
-- Insight: Tahu berapa banyak user yang benar-benar lihat seluruh halaman
+**3. Add date range filter**
+Currently the dashboard always loads the last 1000 rows with no date filtering. As traffic grows, this will miss older data and make the dashboard slow.
+- Add a date picker (last 7d, 30d, custom) to filter queries.
 
-**2. Game Completion vs Abandonment**
-- Saat ini 50% game sessions tidak punya `ended_at` — artinya user keluar tanpa menutup
-- Track `game_abandon` event saat user navigasi away saat game aktif
-- File: `src/lib/tracker.ts` — add `beforeunload` handler untuk game sessions
+**4. Add page events breakdown chart**
+The dashboard has no visualization for event types (67 CTA clicks, 106 section views, etc.). Add a bar chart showing event type distribution.
 
-**3. Time-to-First-Interaction**
-- Track berapa detik dari page load sampai user pertama kali klik/scroll
-- Insight: Apakah hero section cukup engaging?
-- File: `src/pages/Index.tsx`
+**5. Add hourly traffic pattern chart**
+Show which hours of the day get the most traffic. Useful for timing social media posts or campaigns.
 
-**4. Returning vs New Visitor**
-- Gunakan `localStorage` (bukan `sessionStorage`) untuk flag `sp_first_visit`
-- Kirim `is_returning: true/false` di `page_visit_start`
-- File: `src/lib/tracker.ts` + migration tambah kolom `is_returning` di `page_visits`
+**6. Add CTA source breakdown**
+CTA clicks have rich `event_data` (hero_main: 20, sticky_main: 13, download: 11, etc.) but the dashboard doesn't break this down. Show which CTAs convert best.
 
-**5. UTM Parameter Capture**
-- Parse `utm_source`, `utm_medium`, `utm_campaign` dari URL
-- Simpan di `page_visits` — penting untuk tahu channel mana yang paling efektif
-- File: `src/lib/tracker.ts` + migration tambah kolom UTM di `page_visits`
+### New Tracking
 
----
+**7. Track app download clicks separately**
+Currently app card clicks (only 4 total) go to `app_card_click` but don't distinguish which app. The data shows all 4 came from 1 session. Track `app_name` more prominently and add to dashboard.
 
-### B. Database & Schema Improvements
+**8. Track Toko Sawit engagement time**
+`toko_sawit_close` events (only 3 of 8 opens) include `duration_seconds` but the dashboard doesn't display this. Add Toko Sawit engagement metrics.
 
-**6. Tambah tabel `scroll_depths`**
-```
-scroll_depths: session_id, depth_percent (25/50/75/100), reached_at
-```
+**9. Add session replay link for Clarity**
+The Clarity script placeholder in `index.html` still has `CLARITY_PROJECT_ID` — needs a real ID to activate heatmaps and session replays.
 
-**7. Tambah kolom di `page_visits`**
-- `is_returning` (boolean)
-- `utm_source`, `utm_medium`, `utm_campaign` (text, nullable)
-- `time_to_first_interaction_ms` (integer, nullable)
+### Data Insights to Surface
 
----
+**10. Mobile vs Desktop engagement gap**
+Mobile avg duration is 11 min vs Desktop 65 min — a 6x gap. The dashboard should highlight this discrepancy with a comparison card.
 
-### C. Analytics Dashboard (Opsional, Tapi Powerful)
+**11. Panen Sawit abandonment alert**
+Panen Sawit has 58% abandonment (59/102) vs Tanam Sawit at 30% (13/43). Surface per-game completion rates in the dashboard.
 
-**8. Admin Analytics Page**
-- Route `/analytics` dengan password sederhana
-- Tampilkan metrik utama: daily visits, bounce rate, avg duration, top games, device breakdown, conversion funnel (visit → game click → game complete)
-- Gunakan Recharts (sudah tersedia di project)
+### Implementation Summary
 
----
-
-### D. Metode Alternatif (Tanpa Coding Tambahan)
-
-**9. Heatmap via Clarity (Gratis)**
-- Tambahkan Microsoft Clarity script di `index.html`
-- Dapat heatmap, session replay, rage clicks — tanpa biaya
-- Satu baris `<script>` saja
-
-**10. Funnel Analysis Query**
-- Buat SQL query untuk conversion funnel: Visit → Section View → Game Click → Game Complete
-- Bisa dijalankan langsung tanpa perubahan kode
-
----
-
-### Prioritas Implementasi
-
-| Priority | Item | Effort |
-|---|---|---|
-| 1 | Scroll depth tracking | Kecil |
-| 2 | UTM parameter capture | Kecil |
-| 3 | Returning visitor flag | Kecil |
-| 4 | Time-to-first-interaction | Kecil |
-| 5 | Microsoft Clarity integration | Minimal |
-| 6 | Game abandonment tracking | Sedang |
-| 7 | Admin analytics dashboard | Besar |
-
-### Files yang akan dimodifikasi
-
-| File | Change |
+| File | Changes |
 |---|---|
-| `src/lib/tracker.ts` | Scroll depth, UTM, returning visitor, TTFI, game abandon |
-| `src/pages/Index.tsx` | Scroll depth listener, TTFI listener |
-| `index.html` | Clarity script tag |
-| `supabase/migrations/` | New columns on `page_visits`, new `scroll_depths` table |
-| `src/pages/Analytics.tsx` | (Opsional) Admin dashboard |
-| `src/App.tsx` | (Opsional) Route untuk analytics |
+| `src/data/games.ts` | Normalize game IDs to underscores |
+| `src/lib/tracker.ts` | Pass session_id in game_session_end |
+| `supabase/functions/track-event/index.ts` | Fix abandon event session_id |
+| `supabase/migrations/` | Merge duplicate game name data |
+| `src/pages/Analytics.tsx` | Date filter, event breakdown chart, hourly chart, CTA breakdown, per-game completion rates, mobile vs desktop card, Toko Sawit metrics |
+| `index.html` | Reminder to set real Clarity ID |
+
+### Priority Order
+
+| # | Item | Effort |
+|---|---|---|
+| 1 | Fix game name inconsistency + merge data | Small |
+| 2 | Fix game abandon session_id bug | Small |
+| 3 | Add date range filter to dashboard | Medium |
+| 4 | Add event breakdown + CTA source charts | Medium |
+| 5 | Add per-game completion rates | Small |
+| 6 | Add hourly traffic + mobile vs desktop cards | Small |
+| 7 | Add Toko Sawit engagement metrics | Small |
 
