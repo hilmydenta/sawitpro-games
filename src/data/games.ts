@@ -38,7 +38,7 @@ export const games: GameData[] = [
     accentColor: "#F4A261",
   },
   {
-    id: "sawit-bubble",
+    id: "sawit_bubble",
     title: "Sawit Bubble",
     icon: "🫧",
     badge: "PUZZLE",
