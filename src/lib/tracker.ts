@@ -144,6 +144,7 @@ function handleGameAbandon() {
   sendEvent({
     action: "game_session_end",
     game_session_id: currentGameSessionId,
+    session_id: getSessionId(),
     duration_seconds: durationSeconds,
     abandoned: true,
   });
