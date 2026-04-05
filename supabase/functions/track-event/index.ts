@@ -69,19 +69,19 @@ Deno.serve(async (req) => {
     }
 
     if (action === "game_session_end") {
-      const { game_session_id, duration_seconds, abandoned } = body;
+      const { game_session_id, session_id, duration_seconds, abandoned } = body;
       const { error } = await supabase
         .from("game_sessions")
         .update({ ended_at: new Date().toISOString(), duration_seconds })
         .eq("id", game_session_id);
       if (error) throw error;
 
-      // Track abandonment as a page event
-      if (abandoned) {
+      // Track abandonment as a page event using the real page session_id
+      if (abandoned && session_id) {
         await supabase.from("page_events").insert({
-          session_id: game_session_id,
+          session_id,
           event_type: "game_abandon",
-          event_data: { duration_seconds },
+          event_data: { game_session_id, duration_seconds },
         });
       }
 

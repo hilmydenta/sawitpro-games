@@ -14,7 +14,7 @@ export interface GameData {
 
 export const games: GameData[] = [
   {
-    id: "tanam-sawit",
+    id: "tanam_sawit",
     title: "Tanam Sawit",
     icon: "🌱",
     badge: "FARMING SIM",
@@ -26,7 +26,7 @@ export const games: GameData[] = [
     accentColor: "#52B788",
   },
   {
-    id: "panen-sawit",
+    id: "panen_sawit",
     title: "Panen Sawit",
     icon: "🍊",
     badge: "TIME ATTACK",
@@ -38,7 +38,7 @@ export const games: GameData[] = [
     accentColor: "#F4A261",
   },
   {
-    id: "sawit-bubble",
+    id: "sawit_bubble",
     title: "Sawit Bubble",
     icon: "🫧",
     badge: "PUZZLE",
@@ -50,7 +50,7 @@ export const games: GameData[] = [
     accentColor: "#56CCF2",
   },
   {
-    id: "dunia-sawit",
+    id: "dunia_sawit",
     title: "Dunia Sawit",
     icon: "🌍",
     badge: "ADVENTURE",
