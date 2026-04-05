@@ -14,7 +14,7 @@ export interface GameData {
 
 export const games: GameData[] = [
   {
-    id: "tanam-sawit",
+    id: "tanam_sawit",
     title: "Tanam Sawit",
     icon: "🌱",
     badge: "FARMING SIM",
