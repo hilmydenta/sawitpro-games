@@ -12,8 +12,6 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 
 const Index = () => {
   const [activeGameUrl, setActiveGameUrl] = useState<string | null>(null);
-  const [tokoSawitOpen, setTokoSawitOpen] = useState(false);
-  const [tokoOpenTime, setTokoOpenTime] = useState<number>(0);
   const activeGameNameRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -60,40 +58,9 @@ const Index = () => {
   };
 
   const handleOpenTokoSawit = () => {
-    setTokoOpenTime(Date.now());
     trackEvent("toko_sawit_open");
-    setTokoSawitOpen(true);
+    window.open("https://toko.sawitpro.id", "_blank");
   };
-
-  const handleCloseTokoSawit = () => {
-    const durationSeconds = Math.round((Date.now() - tokoOpenTime) / 1000);
-    trackEvent("toko_sawit_close", { duration_seconds: durationSeconds });
-    setTokoSawitOpen(false);
-  };
-
-  // Toko Sawit iframe overlay
-  if (tokoSawitOpen) {
-    return (
-      <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "#0a1a10" }}>
-        <div className="px-4 py-2 flex items-center gap-3" style={{ background: "rgba(10,26,16,0.95)" }}>
-          <button
-            onClick={handleCloseTokoSawit}
-            className="text-primary font-body font-bold text-sm bg-primary/20 hover:bg-primary/30 px-3 py-1.5 rounded-full transition-colors"
-          >
-            ✕ Kembali
-          </button>
-          <span className="text-sm text-muted-foreground">Toko Sawit</span>
-        </div>
-        <iframe
-          src="https://toko.sawitpro.id"
-          className="flex-1 w-full border-0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
-          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-presentation"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
 
   // Game iframe overlay
   if (activeGameUrl) {
