@@ -1,34 +1,30 @@
 
 
-## Fix: Toko Sawit Tidak Muncul di Iframe
+## Card Game Compact — Updated
 
-### Masalah
-Website `https://toko.sawitpro.id` mengirim header Content Security Policy `frame-ancestors 'none'`, yang artinya situs tersebut **menolak ditampilkan di dalam iframe manapun**. Ini adalah pembatasan dari sisi server Toko Sawit, bukan bug di aplikasi kita.
+### Perubahan di `src/components/GameCard.tsx`
 
-### Solusi
+Layout baru per card:
 
-Karena iframe tidak bisa digunakan, ada 2 pendekatan:
+```text
+🌱 Tanam Sawit
+Tanam & rawat kebun virtualmu
+[ Main Tanam Sawit ]
+```
 
-**Opsi A: Buka di Tab Baru (Recommended)**
-- Ubah semua `onOpenTokoSawit` agar membuka `window.open("https://toko.sawitpro.id", "_blank")` 
-- Hapus seluruh Toko Sawit iframe overlay dari `Index.tsx`
-- Tetap track event `toko_sawit_open` dengan source info
-- Paling reliable, tidak bergantung pada CSP pihak ketiga
+Detail perubahan:
+- **Baris pertama**: Icon (28px) + Nama Game horizontal — hapus Poin badge
+- **Hapus** badge kategori (FARMING SIM, dll)
+- **Hapus** badge poin (+15 Poin, +20 Poin, dll)
+- **Hapus** paragraf description panjang
+- **Tagline tetap** ditampilkan
+- **Button**: "Mainkan Sekarang →" → "Main {title}"
+- **Padding/spacing** dikurangi, card lebih compact
 
-**Opsi B: Proxy via Backend Function**
-- Buat edge function yang mem-proxy konten Toko Sawit dan menghapus header CSP
-- Kompleks, fragile, dan bisa melanggar kebijakan situs tersebut
-- Tidak direkomendasikan
-
-### Rencana Implementasi (Opsi A)
-
+### File yang diubah
 | File | Perubahan |
 |---|---|
-| `src/pages/Index.tsx` | Hapus state `tokoSawitOpen`/`tokoOpenTime`, hapus iframe overlay, ubah `handleOpenTokoSawit` jadi `window.open()` |
-| `src/components/Navbar.tsx` | Tidak perlu ubah — sudah panggil `onOpenTokoSawit` |
-| `src/components/Footer.tsx` | Tidak perlu ubah — sudah panggil `onOpenTokoSawit` |
-| `src/components/StickyBottomCTA.tsx` | Tidak perlu ubah |
-| `src/lib/tracker.ts` | Tetap track `toko_sawit_open` event (tanpa close/duration karena tab baru) |
+| `src/components/GameCard.tsx` | Hapus badge, poin, description; restructure layout; update button text |
 
-Kode menjadi lebih sederhana karena tidak perlu manage iframe state lagi.
+Tidak ada perubahan di `src/data/games.ts` — data tetap utuh.
 
