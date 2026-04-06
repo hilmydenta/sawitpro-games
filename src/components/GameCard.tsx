@@ -7,7 +7,7 @@ interface GameCardProps extends GameData {
   onSelect: (url: string) => void;
 }
 
-const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeColor, accentColor, comingSoon, index, isInView, onSelect }: GameCardProps) => {
+const GameCard = ({ title, icon, tagline, url, themeColor, accentColor, comingSoon, index, isInView, onSelect }: GameCardProps) => {
   const [showPulse, setShowPulse] = useState(false);
 
   useEffect(() => {
@@ -16,13 +16,14 @@ const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeCo
       return () => clearTimeout(timer);
     }
   }, [index, isInView]);
+
   const handleClick = () => {
     if (!comingSoon) onSelect(url);
   };
 
   return (
     <div
-      className={`group relative flex-1 min-w-[280px] max-w-[340px] rounded-xl border overflow-hidden transition-all duration-500 ${
+      className={`group relative flex-1 min-w-[220px] max-w-[280px] rounded-xl border overflow-hidden transition-all duration-500 ${
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       } ${comingSoon ? "opacity-60 cursor-not-allowed" : "cursor-pointer"} ${showPulse ? "animate-card-pulse" : ""}`}
       style={{
@@ -48,45 +49,26 @@ const GameCard = ({ title, icon, badge, poin, tagline, description, url, themeCo
       tabIndex={comingSoon ? -1 : 0}
       onKeyDown={(e) => { if (e.key === "Enter" && !comingSoon) handleClick(); }}
     >
-      <div className="p-5">
-        {/* Top row: icon + badges */}
-        <div className="flex items-start justify-between mb-4">
-          <span className="text-[44px] leading-none">{icon}</span>
-          <span
-            className="text-xs font-body font-bold px-2 py-1 rounded-full"
-            style={{ background: `${accentColor}22`, color: accentColor }}
-          >
-            {poin}
-          </span>
+      <div className="p-4">
+        {/* Icon + Title */}
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-[28px] leading-none">{icon}</span>
+          <h3 className="font-heading font-bold text-lg text-foreground">{title}</h3>
         </div>
-
-        {/* Badge */}
-        <span
-          className="inline-block text-[11px] font-body font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full mb-3"
-          style={{ background: `${themeColor}44`, color: accentColor }}
-        >
-          {badge}
-        </span>
-
-        {/* Title */}
-        <h3 className="font-heading font-bold text-[22px] text-foreground mb-1">{title}</h3>
 
         {/* Tagline */}
         <p className="text-[13px] font-bold font-body mb-3" style={{ color: accentColor }}>
           {tagline}
         </p>
 
-        {/* Description */}
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5">{description}</p>
-
         {/* CTA */}
         <button
-          className="w-full py-2.5 rounded-lg text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="w-full py-2 rounded-lg text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
           style={{ background: accentColor, color: "#0a1a10" }}
           disabled={comingSoon}
           tabIndex={-1}
         >
-          {comingSoon ? "Segera Hadir" : "Mainkan Sekarang →"}
+          {comingSoon ? "Segera Hadir" : `Main ${title}`}
         </button>
       </div>
     </div>
